@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <script>
+    
+    // Rock Paper Scissors
+    
+    function computerPlay() {
+      let computerSelection = ['Rock', 'Paper', 'Scissors'];
+      return computerSelection[Math.floor(Math.random()*computerSelection.length)];
+    }
+
+    function playRound() {
+      if (playerSelection == computerSelection) {
+        console.log(playerSelection + ' = ' + computerSelection + ', it is a tie!');
+      } else if ((computerSelection == 'Rock' && playerSelection == 'Paper') || 
+                (computerSelection == 'Paper' && playerSelection == 'Scissors') ||
+                (computerSelection == 'Scissors' && playerSelection == 'Rock')) {
+        console.log('You Win! ' + playerSelection + ' beats ' + computerSelection);
+      } else {
+        console.log('You Lose! ' + computerSelection + ' beats ' + playerSelection);
+      }
+    }
+
+    let playerSelection = prompt('Rock, Paper or Scissors?');
+    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+    const computerSelection = computerPlay();
+
+    playRound(playerSelection, computerSelection);
+
+  </script>
+</body>
+</html>
