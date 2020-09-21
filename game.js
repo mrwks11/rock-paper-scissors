@@ -1,6 +1,7 @@
 // Starting scores
 let playerScore = 0;
 let computerScore = 0;
+let roundNumber = 0;
 
 // Select a random input for the computer
 function computerPlay() {
@@ -10,26 +11,27 @@ function computerPlay() {
 
 // Start a game round
 function playRound(playerSelection, computerSelection) {
+    roundNumber = roundNumber + 1;
+    const container = document.querySelector('.results');
+    let content = document.createElement('p');
+    
     if (playerSelection == computerSelection) {
-      console.log('You chose ' + playerSelection);
-      console.log('The computer chose ' + computerSelection);
-      console.log('So it is a tie!');
-      console.log('The current score = You: ' + playerScore + ' - Computer: ' + computerScore);
-      console.log('--------------');
+        content.classList.add('content');
+        content.textContent = `You chose ${playerSelection} // The computer chose ${computerSelection} // So it's a tie! // Current score = You: ${playerScore} - Computer: ${computerScore}`;
+        container.appendChild(content);
+
     } else if ((computerSelection == 'rock' && playerSelection == 'paper') || (computerSelection == 'paper' && playerSelection == 'scissors') || (computerSelection == 'scissors' && playerSelection == 'rock')) {
-      console.log('You chose ' + playerSelection);
-      console.log('The computer chose ' + computerSelection);
-      console.log('You Win! Because ' + playerSelection + ' beats ' + computerSelection);
-      playerScore = playerScore + 1;
-      console.log('The current score = You: ' + playerScore + ' - Computer: ' + computerScore);
-      console.log('--------------');
+        playerScore = playerScore + 1;
+        content.classList.add('content');
+        content.textContent = `You chose ${playerSelection} // The computer chose ${computerSelection} // You WIN! Because ${playerSelection} beats ${computerSelection} // Current score = You: ${playerScore} - Computer: ${computerScore}`;
+        container.appendChild(content);
+
     } else {
-      console.log('You chose ' + playerSelection);
-      console.log('The computer chose ' + computerSelection);
-      console.log('You Lose! Because ' + computerSelection + ' beats ' + playerSelection);
-      computerScore = computerScore + 1;
-      console.log('The current score = You: ' + playerScore + ' - Computer: ' + computerScore);
-      console.log('--------------');
+        computerScore = computerScore + 1;
+        content.classList.add('content');
+        content.textContent = `You chose ${playerSelection} // The computer chose ${computerSelection} // You LOSE! Because ${computerSelection} beats ${playerSelection} // Current score = You: ${playerScore} - Computer: ${computerScore}`;
+        container.appendChild(content);
+
     }
 }
 
