@@ -1,86 +1,80 @@
 // Starting scores
 let playerScore = 0;
 let computerScore = 0;
-let roundNumber = 0;
+
+// check number of rounds status
+function checkScore() {
+
+    if (playerScore === 5) {
+
+        content.classList.add('content');
+        content.textContent = `The final score is... \r\nYOU: ${playerScore} - Computer: ${computerScore} \r\nYOU WIN!`;
+        results.appendChild(content);
+        playerScore = 0;
+        computerScore = 0;
+
+    } else if (computerScore === 5) {
+
+        content.classList.add('content');
+        content.textContent = `The final score is... \r\nYOU: ${playerScore} - Computer: ${computerScore} \r\nYOU LOSE!`;
+        results.appendChild(content);
+        playerScore = 0;
+        computerScore = 0;
+
+    }
+}
 
 // Select a random input for the computer
 function computerPlay() {
+
     computerSelection = ['rock', 'paper', 'scissors'];
     return computerSelection[Math.floor(Math.random()*computerSelection.length)];
+
 }
 
 // Start a game round
-function playRound(playerSelection, computerSelection) {
-    roundNumber = roundNumber + 1;
-    const container = document.querySelector('.results');
-    let content = document.createElement('p');
-    
+function playRound(playerSelection, computerSelection) {   
+        
     if (playerSelection == computerSelection) {
         content.classList.add('content');
-        content.textContent = `You chose ${playerSelection} // The computer chose ${computerSelection} // So it's a tie! // Current score = You: ${playerScore} - Computer: ${computerScore}`;
-        container.appendChild(content);
+        content.textContent = `You chose "${playerSelection}" || The computer chose "${computerSelection}" \r\nSo it's a tie! \r\nThe current score is... \r\nYou: ${playerScore} - Computer: ${computerScore}`;
+        results.appendChild(content);
+        checkScore();
 
     } else if ((computerSelection == 'rock' && playerSelection == 'paper') || (computerSelection == 'paper' && playerSelection == 'scissors') || (computerSelection == 'scissors' && playerSelection == 'rock')) {
         playerScore = playerScore + 1;
         content.classList.add('content');
-        content.textContent = `You chose ${playerSelection} // The computer chose ${computerSelection} // You WIN! Because ${playerSelection} beats ${computerSelection} // Current score = You: ${playerScore} - Computer: ${computerScore}`;
-        container.appendChild(content);
+        content.textContent = `You chose "${playerSelection}" || The computer chose "${computerSelection}" \r\nYou WIN! Because "${playerSelection}" beats "${computerSelection}" \r\nThe current score is... \r\nYou: ${playerScore} - Computer: ${computerScore}`;
+        results.appendChild(content);
+        checkScore();
 
     } else {
         computerScore = computerScore + 1;
         content.classList.add('content');
-        content.textContent = `You chose ${playerSelection} // The computer chose ${computerSelection} // You LOSE! Because ${computerSelection} beats ${playerSelection} // Current score = You: ${playerScore} - Computer: ${computerScore}`;
-        container.appendChild(content);
+        content.textContent = `You chose "${playerSelection}" || The computer chose "${computerSelection}" \r\nYou LOSE! Because "${computerSelection}" beats "${playerSelection}" \r\nThe current score is... \r\nYou: ${playerScore} - Computer: ${computerScore}`;
+        results.appendChild(content);
+        checkScore();
 
     }
+
 }
 
-
+// select all buttons
 const buttons = document.querySelectorAll('button');
 
+// select results class and create div
+const results = document.querySelector('.results');
+let content = document.createElement('div');
+
+// check clicked button and assign selection, start a game round
 buttons.forEach((button) => {
+
     button.addEventListener('click', () => {
+
         let playerSelection = button.id;
         let computerSelection = computerPlay();
         playRound(playerSelection, computerSelection);
+
     })
+
 });
-
-
-/*
-
-    // The Rock, Paper, Scissors Game
-    function game() {
-
-        // Play the game 5 times in total
-        for (let i = 1; i <= 5; i++) {
-          let playerSelection = prompt('Rock, Paper or Scissors?');
-          playerSelection = playerSelection.toLowerCase();
-          const computerSelection = computerPlay();
-
-          // In case the user writes an invalid input
-          if (playerSelection == 'rock' || playerSelection == 'paper' || playerSelection == 'scissors') {
-            playRound(playerSelection, computerSelection);
-          } else {
-            console.log('You did not enter Rock, Paper or Scissors. The game ends, try again!');
-            break;
-				  }
-        }
-
-        // Display the final result
-        if (playerScore > computerScore) {
-          console.log('The final score = You: ' + playerScore + ' - Computer: ' + computerScore);
-          console.log('You win the game, congratulations!');
-        } else if (playerScore < computerScore) {
-          console.log('The final score = You: ' + playerScore + ' - Computer: ' + computerScore);
-          console.log('You lose the game, try again!');
-        } else {
-          console.log('The final score = You: ' + playerScore + ' - Computer: ' + computerScore);
-          console.log('It is a tie, try again!');
-        }
-
-    }
-
-    game();
-
-    */
